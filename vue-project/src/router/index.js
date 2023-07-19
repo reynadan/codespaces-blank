@@ -1,36 +1,46 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import PageHome from '@/components/PageHome.vue'
 import PageThreadShow from '@/components/PageThreadShow.vue'
 import PageNotFound from '@/components/PageNotFound.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import sourceData from '@/data.json'
 
-
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: PageHome
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-    },
-    {
-      path: '/thread/:id',
-      name: 'PageThreadShow',
-      component: PageThreadShow,
-      props: true
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'NotFound',
-      component: PageNotFound
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: PageHome
+  },
+  {
+    path: '/thread/:id',
+    name: 'ThreadShow',
+    component: PageThreadShow,
+    props: true,
+    beforeEnter (to, from, next) {
+      // check if thread exists
+      const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
+      // if exists continue
+      if (threadExists) {
+        return next()
+      } else {
+        next({
+          name: 'NotFound',
+          params: { pathMatch: to.path.substring(1).split('/') },
+          // preserve existing query and hash
+          query: to.query,
+          hash: to.hash
+        })
+      }
+      // if doesnt exist redirect to not found
     }
-  ]
-})
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: PageNotFound
+  }
+]
 
-export default router
+export default createRouter({
+  history: createWebHistory(),
+  routes
+})
