@@ -1,8 +1,8 @@
 <template>
+    <div class="container">
 <div v-for="thread in threads"
        :key="thread.id"
-       class="col-large push-top"
-  >
+       class="col-large push-top" >
     <h1>{{ thread.title }}</h1>
 
     <div class="post-list">
@@ -38,6 +38,7 @@
 
     </div>
   </div>
+</div>
 </template>
   
 <script setup>
