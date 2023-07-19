@@ -11,7 +11,9 @@ import PageHome from '@/components/PageHome.vue'
   </header>
 </template>
 
-<style scoped>
+<style>
+  @import 'assets/style.css';
+
 header {
   line-height: 1.5;
   max-height: 100vh;
