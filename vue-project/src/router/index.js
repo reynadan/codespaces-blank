@@ -2,6 +2,8 @@ import PageHome from '@/pages/Home.vue'
 import PageThreadShow from '@/pages/ThreadShow.vue'
 import PageNotFound from '@/pages/NotFound.vue'
 import Forum from '@/pages/Forum.vue'
+import Category from '@/pages/Category.vue'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '@/data.json'
 
@@ -44,7 +46,13 @@ const routes = [
     name: 'Forum',
     component: Forum,
     props: true
-  }
+  },
+  {
+    path: '/category/:id',
+    name: 'Category',
+    component: Category,
+    props: true
+  },
 ]
 
 export default createRouter({
