@@ -25,7 +25,7 @@
       </div>
 
       <div class="post-date text-faded">
-        {{ toReadableDate(post.publishedAt)}}
+        <AppDate :timestamp="post.publishedAt" />
       </div>
 
     </div>
@@ -34,12 +34,8 @@
 </template>
 
 <script>
+import AppDate from '@/components/AppDate.vue'
 import sourceData from '@/data.json'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import localizedDate from 'dayjs/plugin/localizedFormat'
-dayjs.extend(relativeTime)
-dayjs.extend(localizedDate)
 
 export default {
   props: {
@@ -47,6 +43,9 @@ export default {
       required: true,
       type: Array
     }
+  },
+  components: {
+    AppDate
   },
   data () {
     return {
@@ -56,10 +55,6 @@ export default {
   methods: {
     userById (userId) {
       return this.users.find(p => p.id === userId)
-    },
-    toReadableDate(timestamp) {
-      let datePost = dayjs.unix(timestamp)
-      return datePost.fromNow()
     }
   }
 }
