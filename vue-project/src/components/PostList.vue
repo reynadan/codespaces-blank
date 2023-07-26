@@ -25,7 +25,7 @@
       </div>
 
       <div class="post-date text-faded">
-        {{post.publishedAt}}
+        {{ toReadableDate(post.publishedAt)}}
       </div>
 
     </div>
@@ -35,6 +35,8 @@
 
 <script>
 import sourceData from '@/data.json'
+import dayjs from 'dayjs'
+
 export default {
   props: {
     posts: {
@@ -50,6 +52,10 @@ export default {
   methods: {
     userById (userId) {
       return this.users.find(p => p.id === userId)
+    },
+    toReadableDate(timestamp) {
+      let datePost = dayjs.unix(timestamp)
+      return datePost.format('DD/MM/YYYY')
     }
   }
 }
