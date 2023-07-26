@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import AppDate from '@/components/AppDate.vue'
 import sourceData from '@/data.json'
 
 export default {
@@ -43,9 +42,6 @@ export default {
       required: true,
       type: Array
     }
-  },
-  components: {
-    AppDate
   },
   data () {
     return {
